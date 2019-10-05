@@ -22,6 +22,7 @@ With the console still open, install all dependencies:
 ```
 pip3 install InstagramApi --user
 pip3 install awscli --upgrade --user
+pip3 install boto3 --user
 ```
 For further info on these:
 https://github.com/LevPasha/Instagram-API-python
