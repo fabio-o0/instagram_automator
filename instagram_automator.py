@@ -4,6 +4,7 @@ from os.path import isfile, join
 from InstagramAPI import InstagramAPI
 import json
 import boto3
+from pathlib import Path
 
 #YOUR INFO
 USERNAME = "USERNAME"
@@ -16,9 +17,10 @@ PHONE_NUMBER = "PHONE_NUMBER"
 client = boto3.client('sns', 'us-east-1') #CHANGE THE REGION IF YOU NEED TO
 
 #PATHS
-queuePath = "/Scheduler/postsQueue/"
-captionsPath = "/Scheduler/captions.json"
-photoFolderPath = "/Scheduler/postsQueue/1"
+home = str(Path.home())
+queuePath = home + "/Scheduler/postsQueue"
+captionsPath = home + "/Scheduler/captions.json"
+photoFolderPath = home + "/Scheduler/postsQueue/1"
 
 def getCaption(captionsPath):
     #get caption from json
@@ -132,7 +134,7 @@ else:
         files = getFiles(photoFolderPath)
 
         #log into instagram
-        instagramLogin(USERNAME, PASSWORD)
+        ig.login()
 
         media = createCarousel(files)
 
