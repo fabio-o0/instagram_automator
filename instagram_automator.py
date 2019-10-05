@@ -9,14 +9,16 @@ import boto3
 USERNAME = "USERNAME"
 PASSWORD = "PASSWORD"
 
+ig = InstagramAPI(USERNAME, PASSWORD)
+
 #AMAZON CLIENT INFO
 PHONE_NUMBER = "PHONE_NUMBER"
 client = boto3.client('sns', 'us-east-1') #CHANGE THE REGION IF YOU NEED TO
 
 #PATHS
-queuePath = "QUEUE PATH"
-captionsPath = "CAPTIONS_PATH"
-photoFolderPath = "PHOTO_FOLDER_PATH"
+queuePath = "/Scheduler/postsQueue/"
+captionsPath = "/Scheduler/captions.json"
+photoFolderPath = "/Scheduler/postsQueue/1"
 
 def getCaption(captionsPath):
     #get caption from json
@@ -41,9 +43,9 @@ def getCaption(captionsPath):
     print("\nClosing json...\n")
     with open(captionsPath, 'w') as jsonData:
         json.dump(data, jsonData)
-        
+
     return captionText
-    
+
 def renameDirs(photoFolderPath, queuePath):
     #delete uploaded files from dir
     print("Deleting leftover files...")
@@ -69,7 +71,7 @@ def renameDirs(photoFolderPath, queuePath):
                 print(str(dir) + " done...")
         except Exception as e:
             print(e)
-            
+
 def createCarousel(files):
     #sort files
     print("Sorting files...\n")
@@ -90,47 +92,42 @@ def createCarousel(files):
                 }
             )
         print("File " + str((i+1)) + "done...")
-    
+
     return media
-    
+
 def getPhoto(files):
     photo = None
     for file in files:
         if file != ".DS_Store":
             photo = file
-        
+
     return photo
-    
+
 def getFiles(photoFolderPath):
     #open pictures
     print("Getting files...\n")
     os.chdir(photoFolderPath)
     files = [f for f in listdir(photoFolderPath) if isfile(join(photoFolderPath, f))]
     return files
-    
-def instagramLogin(username, password):
-    #log into instagram
-    ig = InstagramAPI(username, password)
-    ig.login()
 
 if len(os.listdir(queuePath)) == 0:
     client.publish(PhoneNumber=PHONE_NUMBER, Message='Instagram Automator: Tried to upload but folder was empty.')
 else:
     if len(os.listdir(photoFolderPath)) == 1:
         #log into instagram
-        instagramLogin(USERNAME, PASSWORD)
-        
+        ig.login()
+
         photo = getPhoto(getFiles(photoFolderPath))
         captionText = getCaption(captionsPath)
-            
+
         #upload to instagram
         print("Uploading to Instagram...\n")
         ig.uploadPhoto(photo, caption=captionText)
-        
+
         renameDirs(photoFolderPath, queuePath)
 
         print("\nSending text message...\n")
-        client.publish(PhoneNumber=PHONE_NUMBER', Message='Instagram Automator: Upload successful.')
+        client.publish(PhoneNumber=PHONE_NUMBER, Message='Instagram Automator: Upload successful.')
     else:
         files = getFiles(photoFolderPath)
 
