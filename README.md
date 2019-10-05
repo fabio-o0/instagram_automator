@@ -28,7 +28,7 @@ https://github.com/LevPasha/Instagram-API-python
 https://docs.aws.amazon.com/cli/latest/userguide/install-linux.html
 
 ### STEP 5
-Head over to https://aws.amazon.com/ and create an account. Once logged in search for **IAM** in the services. Click on the **Users** tab and create a new user. Get to the credentials screen. You will have two numbers, one public, one secret, you will use these in step 6.
+Head over to https://aws.amazon.com/ and create an account. Once logged in search for **IAM** in the services. Click on the **Users** tab and create a new user. Get to the credentials screen. You will have two keys, one public access key, one private secret key, you will use these in step 6.
 
 ### STEP 6
 With your Amazon codes open, go back to the https://www.pythonanywhere.com console and set up Amazon Web Services:
