@@ -20,7 +20,7 @@ unzip Complete.zip
 ### STEP 4
 With the console still open, install all dependencies:
 ```
-pip3 install InstagramApi
+pip3 install InstagramApi --user
 pip3 install awscli --upgrade --user
 ```
 For further info on these:
