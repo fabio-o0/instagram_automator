@@ -18,9 +18,9 @@ client = boto3.client('sns', 'us-east-1') #CHANGE THE REGION IF YOU NEED TO
 
 #PATHS
 home = str(Path.home())
-queuePath = home + "/Scheduler/postsQueue"
-captionsPath = home + "/Scheduler/captions.json"
-photoFolderPath = home + "/Scheduler/postsQueue/1"
+queuePath = home + "/Complete/Scheduler/postsQueue"
+captionsPath = home + "/Complete/Scheduler/captions.json"
+photoFolderPath = home + "/Complete/Scheduler/postsQueue/1"
 
 def getCaption(captionsPath):
     #get caption from json
