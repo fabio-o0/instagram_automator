@@ -54,7 +54,7 @@ You're done. Now you just need to upload whatever you want to post. Here's how y
 Now you need to actually schedule the script to run when you want to. https://www.pythonanywhere.com is on UTC so you'll have to convert to your timezone. On https://www.pythonanywhere.com, go to **Tasks** and input your time and this for the command that it asks for **(Make sure to put whatever username your account has)**:
 
 ```
-python 3 /home/{username}/Complete/instagram_automator.py
+python3 /home/{username}/Complete/instagram_automator.py
 ```
 
 ### STEP 10
